@@ -18,7 +18,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 import org.greenrobot.eventbus.EventBus;
 
-@SuppressLint("NonConstantResourceId")
+@SuppressLint("NonConstantResourceId")  //Suppresses lint warnings related to non-constant resource IDs.
 public class AdminMainActivity extends BaseActivity {
 
     @Override
@@ -27,14 +27,18 @@ public class AdminMainActivity extends BaseActivity {
         ActivityAdminMainBinding activityAdminMainBinding = ActivityAdminMainBinding.inflate(getLayoutInflater());
         setContentView(activityAdminMainBinding.getRoot());
 
+        // Set up the view pager with an adapter and disable user input
         AdminViewPagerAdapter adminViewPagerAdapter = new AdminViewPagerAdapter(this);
         activityAdminMainBinding.viewpager2.setAdapter(adminViewPagerAdapter);
         activityAdminMainBinding.viewpager2.setUserInputEnabled(false);
+
+        // Register a page change callback for the view pager
 
         activityAdminMainBinding.viewpager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
+                // Updates the selected item in the bottom navigation and the title text based on the current page of the ViewPager2.
                 switch (position) {
                     case 0:
                         activityAdminMainBinding.bottomNavigation.getMenu().findItem(R.id.nav_admin_category).setChecked(true);
@@ -64,8 +68,10 @@ public class AdminMainActivity extends BaseActivity {
             }
         });
 
+        // Set up item selected listener for the bottom navigation
         activityAdminMainBinding.bottomNavigation.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
+            // Update the view pager current item and title based on the selected item
             switch (id) {
                 case R.id.nav_admin_category:
                     activityAdminMainBinding.viewpager2.setCurrentItem(0);
@@ -97,6 +103,12 @@ public class AdminMainActivity extends BaseActivity {
         });
     }
 
+    //Methods
+    // showDialogLogout() method
+    // Displays a confirmation dialog to log out.
+    // Uses MaterialDialog to build the dialog.
+    // On positive action, it dismisses the dialog and finishes all activities using finishAffinity().
+    // On negative action, it simply dismisses the dialog.
     private void showDialogLogout() {
         new MaterialDialog.Builder(this)
                 .title(getString(R.string.app_name))
@@ -105,24 +117,28 @@ public class AdminMainActivity extends BaseActivity {
                 .negativeText(getString(R.string.action_cancel))
                 .onPositive((dialog, which) -> {
                     dialog.dismiss();
-                    finishAffinity();
+                    finishAffinity();// Close all activities and exit the app
                 })
                 .onNegative((dialog, which) -> dialog.dismiss())
                 .cancelable(true)
                 .show();
     }
 
+    //onActivityResult() Method
+    //Handles results from other activities, specifically QR code scanning.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);//Uses IntentIntegrator.parseActivityResult to parse the result.
         if (intentResult != null && intentResult.getContents() != null) {
-            EventBus.getDefault().post(new ResultQrCodeEvent(intentResult.getContents()));
+            EventBus.getDefault().post(new ResultQrCodeEvent(intentResult.getContents()));//Posts a ResultQrCodeEvent to EventBus if a QR code is scanned.
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
+    //onBackPressed() method
+    //Overrides the back button press to show the logout confirmation dialog instead of the default back behavior.
     @Override
     public void onBackPressed() {
         showDialogLogout();

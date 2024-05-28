@@ -17,6 +17,7 @@ import java.util.Map;
 
 public class AddCategoryActivity extends BaseActivity {
 
+    // Declare a variable
     private ActivityAddCategoryBinding mActivityAddCategoryBinding;
     private boolean isUpdate;
     private Category mCategory;
@@ -39,60 +40,68 @@ public class AddCategoryActivity extends BaseActivity {
         mActivityAddCategoryBinding.btnAddOrEdit.setOnClickListener(v -> addOrEditCategory());
     }
 
+    //Method
+    // Method to initialize the view
+
     private void initView() {
-        if (isUpdate) {
+        if (isUpdate) { // If in update mode
             mActivityAddCategoryBinding.tvTitle.setText(getString(R.string.edit_category_title));
             mActivityAddCategoryBinding.btnAddOrEdit.setText(getString(R.string.action_edit));
             mActivityAddCategoryBinding.edtName.setText(mCategory.getName());
             mActivityAddCategoryBinding.edtImage.setText(mCategory.getImage());
-        } else {
+        } else {// If in add mode
             mActivityAddCategoryBinding.tvTitle.setText(getString(R.string.add_category_title));
             mActivityAddCategoryBinding.btnAddOrEdit.setText(getString(R.string.action_add));
         }
     }
 
+    // Method to add or edit a category
     private void addOrEditCategory() {
         String strName = mActivityAddCategoryBinding.edtName.getText().toString().trim();
         String strImage = mActivityAddCategoryBinding.edtImage.getText().toString().trim();
-
+        // Check if the category name is empty
         if (StringUtil.isEmpty(strName)) {
             Toast.makeText(this, getString(R.string.msg_name_category_require), Toast.LENGTH_SHORT).show();
             return;
         }
-
+        // Check if the image URL is empty
         if (StringUtil.isEmpty(strImage)) {
             Toast.makeText(this, getString(R.string.msg_image_category_require), Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Update category
-        if (isUpdate) {
-            showProgressDialog(true);
-            Map<String, Object> map = new HashMap<>();
-            map.put("name", strName);
-            map.put("image", strImage);
+        if (isUpdate) {//In update  mode
+            showProgressDialog(true); // Show progress dialog
+            Map<String, Object> map = new HashMap<>(); // Create a map to update data
+            map.put("name", strName); // Add name to the map
+            map.put("image", strImage); // Add image URL to the map
 
+            // Update category data in the database
             MyApplication.get(this).getCategoryDatabaseReference()
                     .child(String.valueOf(mCategory.getId())).updateChildren(map, (error, ref) -> {
-                showProgressDialog(false);
-                Toast.makeText(AddCategoryActivity.this,
-                        getString(R.string.msg_edit_category_successfully), Toast.LENGTH_SHORT).show();
-                GlobalFunction.hideSoftKeyboard(AddCategoryActivity.this);
-            });
+                        showProgressDialog(false); // Hide progress dialog
+                        Toast.makeText(AddCategoryActivity.this,
+                                getString(R.string.msg_edit_category_successfully), Toast.LENGTH_SHORT).show(); // Show success message
+                        GlobalFunction.hideSoftKeyboard(AddCategoryActivity.this); // Hide the keyboard
+                    });
             return;
         }
 
         // Add category
-        showProgressDialog(true);
-        long categoryId = System.currentTimeMillis();
+        // In create mode
+        showProgressDialog(true); // Show progress dialog
+        long categoryId = System.currentTimeMillis(); // Generate a category ID using the current time
 
+        // Create a new Category object
         Category category = new Category(categoryId, strName, strImage);
+        // Add the new category to the database
         MyApplication.get(this).getCategoryDatabaseReference().child(String.valueOf(categoryId)).setValue(category, (error, ref) -> {
-            showProgressDialog(false);
-            mActivityAddCategoryBinding.edtName.setText("");
-            mActivityAddCategoryBinding.edtImage.setText("");
-            GlobalFunction.hideSoftKeyboard(this);
-            Toast.makeText(this, getString(R.string.msg_add_category_successfully), Toast.LENGTH_SHORT).show();
+            showProgressDialog(false); // Hide progress dialog
+            mActivityAddCategoryBinding.edtName.setText(""); // Clear the name edit text
+            mActivityAddCategoryBinding.edtImage.setText(""); // Clear the image URL edit text
+            GlobalFunction.hideSoftKeyboard(this); // Hide the keyboard
+            Toast.makeText(this, getString(R.string.msg_add_category_successfully), Toast.LENGTH_SHORT).show(); // Show success message
         });
     }
 }

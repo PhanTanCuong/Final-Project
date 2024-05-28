@@ -21,6 +21,7 @@ import java.util.List;
 
 public class AdminRevenueActivity extends AppCompatActivity {
 
+    // Declare a variable
     private ActivityAdminRevenueBinding mActivityAdminRevenueBinding;
     private List<Revenue> mListRevenue;
 
@@ -34,14 +35,22 @@ public class AdminRevenueActivity extends AppCompatActivity {
         getListRevenue();
     }
 
+    //Methods
+    //initListener() method
+    //Sets up a click listener for the back button to call onBackPressed.
     private void initListener() {
         mActivityAdminRevenueBinding.imgBack.setOnClickListener(v -> onBackPressed());
     }
 
+    //getListRevenue()
+
+
+
     private void getListRevenue() {
+        //Adds a ValueEventListener to the booking database reference.
         MyApplication.get(this).getBookingDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {//Fetches booking history data from the snapshot and populates a list of BookingHistory.
                 List<BookingHistory> list = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     BookingHistory bookingHistory = dataSnapshot.getValue(BookingHistory.class);
@@ -49,6 +58,7 @@ public class AdminRevenueActivity extends AppCompatActivity {
                         list.add(bookingHistory);
                     }
                 }
+                //    Calls handleDataHistories to process the fetched booking histories.
                 handleDataHistories(list);
             }
 
@@ -57,16 +67,27 @@ public class AdminRevenueActivity extends AppCompatActivity {
             }
         });
     }
+    //handleDataHistories() Method
+    //
+
+
+
+
+
+
 
     private void handleDataHistories(List<BookingHistory> list) {
+        //    Checks if the list of booking histories is null or empty.
         if (list == null || list.isEmpty()) {
             return;
         }
+        //    Initializes or clears the revenue list (mListRevenue).
         if (mListRevenue != null) {
             mListRevenue.clear();
         } else {
             mListRevenue = new ArrayList<>();
         }
+        //    Iterates through the booking histories to populate the revenue list.
         for (BookingHistory history : list) {
             long movieId = history.getMovieId();
             if (checkRevenueExist(movieId)) {
@@ -79,20 +100,23 @@ public class AdminRevenueActivity extends AppCompatActivity {
                 mListRevenue.add(revenue);
             }
         }
+        //    Sets up the RecyclerView with a LinearLayoutManager and an AdminRevenueAdapter.
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mActivityAdminRevenueBinding.rcvData.setLayoutManager(linearLayoutManager);
 
         List<Revenue> listFinal = new ArrayList<>(mListRevenue);
-        listFinal.sort((statistical1, statistical2)
+        listFinal.sort((statistical1, statistical2)     //    Sorts the revenue list by total price in descending order.
                 -> statistical2.getTotalPrice() - statistical1.getTotalPrice());
         AdminRevenueAdapter adminRevenueAdapter = new AdminRevenueAdapter(listFinal);
         mActivityAdminRevenueBinding.rcvData.setAdapter(adminRevenueAdapter);
 
         // Calculate total
         String strTotalValue = getTotalValues() + ConstantKey.UNIT_CURRENCY;
-        mActivityAdminRevenueBinding.tvTotalValue.setText(strTotalValue);
+        mActivityAdminRevenueBinding.tvTotalValue.setText(strTotalValue);//updates the UI with the total value.
     }
 
+    // checkRevenueExist() Method
+    //Checks if a revenue entry exists for a given movie ID in the revenue list.
     private boolean checkRevenueExist(long movieId) {
         if (mListRevenue == null || mListRevenue.isEmpty()) {
             return false;
@@ -107,6 +131,8 @@ public class AdminRevenueActivity extends AppCompatActivity {
         return result;
     }
 
+    // getRevenueFromMovieId() Method
+    // Returns the revenue entry for a given movie ID from the revenue list.
     private Revenue getRevenueFromMovieId(long movieId) {
         Revenue result = null;
         for (Revenue revenue : mListRevenue) {
@@ -118,6 +144,8 @@ public class AdminRevenueActivity extends AppCompatActivity {
         return result;
     }
 
+    //    getTotalValues() Method:
+    //    Calculates and returns the total revenue from the revenue list.
     private int getTotalValues() {
         if (mListRevenue == null || mListRevenue.isEmpty()) {
             return 0;
