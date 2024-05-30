@@ -2,6 +2,8 @@ package com.example.cinema.model;
 
 import java.io.Serializable;
 
+// Category class encapsulates the essential properties of a category within the application,
+// providing a structured way to manage and interact with category data.
 public class Category implements Serializable {
     private long id;
     private String name;

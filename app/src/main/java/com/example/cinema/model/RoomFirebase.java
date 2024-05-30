@@ -3,6 +3,8 @@ package com.example.cinema.model;
 import java.io.Serializable;
 import java.util.List;
 
+// the RoomFirebase class provides a structured way to represent rooms and their associated schedules,
+// facilitating the management and interaction with room-related data within the application.
 public class RoomFirebase implements Serializable {
 
     private int id;

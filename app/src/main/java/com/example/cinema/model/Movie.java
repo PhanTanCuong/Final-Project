@@ -2,7 +2,8 @@ package com.example.cinema.model;
 
 import java.io.Serializable;
 import java.util.List;
-
+// the Movie class encapsulates the essential properties of a Movie item within the application,
+// providing a structured way to manage and interact with Movie item data.
 public class Movie implements Serializable {
 
     private long id;

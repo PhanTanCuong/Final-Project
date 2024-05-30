@@ -2,6 +2,8 @@ package com.example.cinema.model;
 
 import java.io.Serializable;
 
+// the SeatLocal class encapsulates the essential properties of a SeatLocal item within the application,
+// providing a structured way to manage and interact with SeatLocal item data.
 public class SeatLocal implements Serializable {
 
     private int id;

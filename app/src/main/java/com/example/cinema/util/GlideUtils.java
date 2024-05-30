@@ -7,6 +7,12 @@ import com.example.cinema.R;
 
 public class GlideUtils {
 
+    /**
+     * Load an image from a URL into an ImageView as a banner.
+     *
+     * @param url       The URL of the image.
+     * @param imageView The ImageView to load the image into.
+     */
     public static void loadUrlBanner(String url, ImageView imageView) {
         if (imageView == null) {
             return;
@@ -22,6 +28,12 @@ public class GlideUtils {
                 .into(imageView);
     }
 
+    /**
+     * Load an image from a URL into an ImageView.
+     *
+     * @param url       The URL of the image.
+     * @param imageView The ImageView to load the image into.
+     */
     public static void loadUrl(String url, ImageView imageView) {
         if (imageView == null) {
             return;

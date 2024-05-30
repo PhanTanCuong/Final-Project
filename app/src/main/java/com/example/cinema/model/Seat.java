@@ -2,6 +2,8 @@ package com.example.cinema.model;
 
 import java.io.Serializable;
 
+// the Seat class encapsulates the essential properties of a Seat item within the application,
+// providing a structured way to manage and interact with Seat item data.
 public class Seat implements Serializable {
 
     private int id;

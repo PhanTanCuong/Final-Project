@@ -1,5 +1,7 @@
 package com.example.cinema.model;
 
+// the SlotTime class encapsulates the essential properties of a SlotTime item within the application,
+// providing a structured way to manage and interact with SlotTime item data.
 public class SlotTime {
     private int id;
     private String title;

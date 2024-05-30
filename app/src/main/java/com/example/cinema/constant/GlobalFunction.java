@@ -34,12 +34,27 @@ import java.util.regex.Pattern;
 
 public class GlobalFunction {
 
+    /**
+     * Starts a new activity with the specified context and class.
+     * Clears the activity stack and starts the new activity as a new task.
+     *
+     * @param context the context from which to start the activity
+     * @param clz the class of the activity to start
+     */
     public static void startActivity(Context context, Class<?> clz) {
         Intent intent = new Intent(context, clz);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 
+    /**
+     * Starts a new activity with the specified context, class, and bundle.
+     * Clears the activity stack and starts the new activity as a new task.
+     *
+     * @param context the context from which to start the activity
+     * @param clz the class of the activity to start
+     * @param bundle the bundle containing additional data
+     */
     public static void startActivity(Context context, Class<?> clz, Bundle bundle) {
         Intent intent = new Intent(context, clz);
         intent.putExtras(bundle);
@@ -47,22 +62,37 @@ public class GlobalFunction {
         context.startActivity(intent);
     }
 
+    /**
+     * Normalizes the input string by removing diacritical marks.
+     *
+     * @param input the input string to normalize
+     * @return the normalized string without diacritical marks
+     */
     public static String getTextSearch(String input) {
         String nfdNormalizedString = Normalizer.normalize(input, Normalizer.Form.NFD);
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
         return pattern.matcher(nfdNormalizedString).replaceAll("");
     }
 
+    /**
+     * Hides the soft keyboard if it is currently displayed.
+     *
+     * @param activity the activity from which to hide the keyboard
+     */
     public static void hideSoftKeyboard(Activity activity) {
         try {
-            InputMethodManager inputMethodManager = (InputMethodManager) activity.
-                    getSystemService(Activity.INPUT_METHOD_SERVICE);
+            InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
         } catch (NullPointerException ex) {
             ex.printStackTrace();
         }
     }
 
+    /**
+     * Navigates to the main activity based on the user's admin status.
+     *
+     * @param context the context from which to start the activity
+     */
     public static void gotoMainActivity(Context context) {
         if (DataStoreManager.getUser().isAdmin()) {
             GlobalFunction.startActivity(context, AdminMainActivity.class);
@@ -71,12 +101,23 @@ public class GlobalFunction {
         }
     }
 
+    /**
+     * Navigates to the movie detail activity with the specified movie object.
+     *
+     * @param context the context from which to start the activity
+     * @param movie the movie object to pass to the detail activity
+     */
     public static void goToMovieDetail(Context context, Movie movie) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(ConstantKey.KEY_INTENT_MOVIE_OBJECT, movie);
         GlobalFunction.startActivity(context, MovieDetailActivity.class, bundle);
     }
 
+    /**
+     * Retrieves a list of RoomFirebase objects with predefined data.
+     *
+     * @return a list of RoomFirebase objects
+     */
     public static List<RoomFirebase> getListRooms() {
         List<RoomFirebase> list = new ArrayList<>();
         list.add(new RoomFirebase(1, "Phòng 1", getListTimes()));
@@ -88,6 +129,11 @@ public class GlobalFunction {
         return list;
     }
 
+    /**
+     * Retrieves a list of TimeFirebase objects with predefined data.
+     *
+     * @return a list of TimeFirebase objects
+     */
     public static List<TimeFirebase> getListTimes() {
         List<TimeFirebase> list = new ArrayList<>();
         list.add(new TimeFirebase(1, "7AM - 8AM", getListSeats()));
@@ -99,6 +145,11 @@ public class GlobalFunction {
         return list;
     }
 
+    /**
+     * Retrieves a list of Seat objects with predefined data.
+     *
+     * @return a list of Seat objects
+     */
     public static List<Seat> getListSeats() {
         List<Seat> list = new ArrayList<>();
         list.add(new Seat(1, "1", false));
@@ -122,6 +173,13 @@ public class GlobalFunction {
         return list;
     }
 
+    /**
+     * Displays a date picker dialog and returns the selected date.
+     *
+     * @param context the context in which the dialog should be displayed
+     * @param currentDate the currently selected date in "dd-MM-yyyy" format
+     * @param getDateListener the listener to handle the selected date
+     */
     public static void showDatePicker(Context context, String currentDate, final IGetDateListener getDateListener) {
         Calendar mCalendar = Calendar.getInstance();
         int currentDay = mCalendar.get(Calendar.DATE);
@@ -141,20 +199,23 @@ public class GlobalFunction {
             String date = StringUtil.getDoubleNumber(dayOfMonth) + "-" + StringUtil.getDoubleNumber(monthOfYear + 1) + "-" + year;
             getDateListener.getDate(date);
         };
-        DatePickerDialog datePicker = new DatePickerDialog(context,
-                callBack, mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH),
-                mCalendar.get(Calendar.DATE));
+        DatePickerDialog datePicker = new DatePickerDialog(context, callBack, mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DATE));
         datePicker.show();
     }
 
+    /**
+     * Generates a QR code from the given string and sets it to the specified ImageView.
+     *
+     * @param imageView the ImageView to display the QR code
+     * @param id the string to encode into the QR code
+     */
     public static void gentQRCodeFromString(ImageView imageView, String id) {
         if (imageView == null) {
             return;
         }
         BitMatrix result;
         try {
-            result = new MultiFormatWriter().encode(id, BarcodeFormat.QR_CODE,
-                    512, 512, null);
+            result = new MultiFormatWriter().encode(id, BarcodeFormat.QR_CODE, 512, 512, null);
             int w = result.getWidth();
             int h = result.getHeight();
             int[] pixels = new int[w * h];

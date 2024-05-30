@@ -1,7 +1,8 @@
 package com.example.cinema.model;
 
 import java.io.Serializable;
-
+// the Food class encapsulates the essential properties of a food item within the application,
+// providing a structured way to manage and interact with food item data.
 public class Food implements Serializable {
     private long id;
     private String name;

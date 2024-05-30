@@ -1,5 +1,7 @@
 package com.example.cinema.model;
 
+// the Food class encapsulates the essential properties of a Room item within the application,
+// providing a structured way to manage and interact with Room item data.
 public class Room {
     private int id;
     private String title;

@@ -14,12 +14,16 @@ import java.util.List;
 
 public class AdminRevenueAdapter extends RecyclerView.Adapter<AdminRevenueAdapter.AdminRevenueViewHolder> {
 
+    // List to hold revenue items
     private final List<Revenue> mListRevenue;
 
+    // Constructor
     public AdminRevenueAdapter(List<Revenue> mListRevenue) {
         this.mListRevenue = mListRevenue;
     }
 
+    //Method
+    // Method to create view holder
     @NonNull
     @Override
     public AdminRevenueViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -27,19 +31,22 @@ public class AdminRevenueAdapter extends RecyclerView.Adapter<AdminRevenueAdapte
         return new AdminRevenueViewHolder(itemRevenueBinding);
     }
 
+    //Method onBindViewHolder()
     @Override
     public void onBindViewHolder(@NonNull AdminRevenueViewHolder holder, int position) {
         Revenue revenue = mListRevenue.get(position);
         if (revenue == null) {
             return;
         }
-        holder.mItemRevenueBinding.tvStt.setText(String.valueOf(position + 1));
-        holder.mItemRevenueBinding.tvMovieName.setText(revenue.getMovieName());
-        holder.mItemRevenueBinding.tvQuantity.setText(String.valueOf(revenue.getQuantity()));
-        String total = revenue.getTotalPrice() + ConstantKey.UNIT_CURRENCY;
-        holder.mItemRevenueBinding.tvTotalPrice.setText(total);
+        // Bind revenue data to views in the view holder
+        holder.mItemRevenueBinding.tvStt.setText(String.valueOf(position + 1)); // Set serial number (position + 1)
+        holder.mItemRevenueBinding.tvMovieName.setText(revenue.getMovieName()); // Set movie name
+        holder.mItemRevenueBinding.tvQuantity.setText(String.valueOf(revenue.getQuantity())); // Set quantity sold
+        String total = revenue.getTotalPrice() + ConstantKey.UNIT_CURRENCY; // Format total price with currency unit
+        holder.mItemRevenueBinding.tvTotalPrice.setText(total); // Set total price
     }
 
+    //Method getItemCount()
     @Override
     public int getItemCount() {
         if (mListRevenue != null) {
@@ -48,6 +55,8 @@ public class AdminRevenueAdapter extends RecyclerView.Adapter<AdminRevenueAdapte
         return 0;
     }
 
+
+    // View holder class for revenue item
     public static class AdminRevenueViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemRevenueBinding mItemRevenueBinding;

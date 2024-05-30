@@ -3,6 +3,8 @@ package com.example.cinema.model;
 import java.util.ArrayList;
 import java.util.List;
 
+// the Revenue class encapsulates the essential properties of a Revenue item within the application,
+// providing a structured way to manage and interact with Revenue item data.
 public class Revenue {
 
     private long movieId;

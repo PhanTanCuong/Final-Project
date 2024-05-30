@@ -1,5 +1,10 @@
 package com.example.cinema.model;
 
+//This class provides a comprehensive representation of a booking history, encapsulating all relevant details.
+//Ensure appropriate data validation and error handling mechanisms are implemented, especially when dealing with
+// user inputs and database operations.
+//Consider adding additional methods or functionality as needed, such as methods for formatting dates, calculating totals
+// , or validating bookings.
 public class BookingHistory {
     private long id;
     private long movieId;

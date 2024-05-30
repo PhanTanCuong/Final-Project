@@ -14,20 +14,25 @@ import java.util.List;
 
 public class AdminFoodAdapter extends RecyclerView.Adapter<AdminFoodAdapter.FoodViewHolder> {
 
+    // List to hold the food items
     private final List<Food> mListFood;
+    // Listener interface to handle edit and delete actions
     private final IManagerFoodListener iManagerFoodListener;
 
+    // Interface for food management listener
     public interface IManagerFoodListener {
-        void editFood(Food food);
-
-        void deleteFood(Food food);
+        void editFood(Food food); // Method to handle food edit action
+        void deleteFood(Food food); // Method to handle food delete action
     }
 
+    //Constructor
     public AdminFoodAdapter(List<Food> list, IManagerFoodListener listener) {
         this.mListFood = list;
         this.iManagerFoodListener = listener;
     }
 
+    //Method
+    // Method to create view holder
     @NonNull
     @Override
     public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,14 +46,17 @@ public class AdminFoodAdapter extends RecyclerView.Adapter<AdminFoodAdapter.Food
         if (food == null) {
             return;
         }
-        holder.mItemFoodBinding.tvName.setText(food.getName());
-        String strPrice = food.getPrice() + ConstantKey.UNIT_CURRENCY;
-        holder.mItemFoodBinding.tvPrice.setText(strPrice);
-        holder.mItemFoodBinding.tvQuantity.setText(String.valueOf(food.getQuantity()));
+        // Bind food data to views in the view holder
+        holder.mItemFoodBinding.tvName.setText(food.getName()); // Set food name
+        String strPrice = food.getPrice() + ConstantKey.UNIT_CURRENCY; // Format price with currency unit
+        holder.mItemFoodBinding.tvPrice.setText(strPrice); // Set food price
+        holder.mItemFoodBinding.tvQuantity.setText(String.valueOf(food.getQuantity())); // Set food quantity
+        // Set click listeners for edit and delete icons
         holder.mItemFoodBinding.imgEdit.setOnClickListener(v -> iManagerFoodListener.editFood(food));
         holder.mItemFoodBinding.imgDelete.setOnClickListener(v -> iManagerFoodListener.deleteFood(food));
     }
 
+    // Method to get item count
     @Override
     public int getItemCount() {
         if (mListFood != null) {
@@ -57,6 +65,8 @@ public class AdminFoodAdapter extends RecyclerView.Adapter<AdminFoodAdapter.Food
         return 0;
     }
 
+
+    // View holder class for food item
     public static class FoodViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemFoodBinding mItemFoodBinding;

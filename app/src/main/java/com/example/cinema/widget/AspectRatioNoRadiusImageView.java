@@ -9,19 +9,25 @@ import androidx.appcompat.widget.AppCompatImageView;
 
 import com.example.cinema.R;
 
+// This class extends AppCompatImageView to provide functionality for maintaining aspect ratio without rounded corners.
+
 public class AspectRatioNoRadiusImageView extends AppCompatImageView {
 
+    // Constants for measurement types
     public static final int MEASUREMENT_WIDTH = 0;
     public static final int MEASUREMENT_HEIGHT = 1;
 
+    // Default values for aspect ratio
     private static final float DEFAULT_ASPECT_RATIO = 1f;
     private static final boolean DEFAULT_ASPECT_RATIO_ENABLED = false;
     private static final int DEFAULT_DOMINANT_MEASUREMENT = MEASUREMENT_WIDTH;
 
+    // Aspect ratio, aspect ratio enabled flag, and dominant measurement
     private float aspectRatio;
     private boolean aspectRatioEnabled;
     private int dominantMeasurement;
 
+    // Constructors
     public AspectRatioNoRadiusImageView(Context context) {
         this(context, null);
     }
@@ -35,6 +41,7 @@ public class AspectRatioNoRadiusImageView extends AppCompatImageView {
         loadStateFromAttrs(attrs);
     }
 
+    // Load attributes from XML
     @SuppressLint("CustomViewStyleable")
     private void loadStateFromAttrs(AttributeSet attributeSet) {
         if (attributeSet == null) {
@@ -57,6 +64,7 @@ public class AspectRatioNoRadiusImageView extends AppCompatImageView {
         }
     }
 
+    // Override onMeasure to calculate new dimensions based on aspect ratio
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -82,3 +90,4 @@ public class AspectRatioNoRadiusImageView extends AppCompatImageView {
         setMeasuredDimension(newWidth, newHeight);
     }
 }
+

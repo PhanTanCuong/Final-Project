@@ -3,6 +3,8 @@ package com.example.cinema.model;
 import java.io.Serializable;
 import java.util.List;
 
+//the TimeFirebase class provides a structured way to represent time slots within a room,
+//facilitating the management and interaction with time slot-related data within the application.
 public class TimeFirebase implements Serializable {
 
     private int id;

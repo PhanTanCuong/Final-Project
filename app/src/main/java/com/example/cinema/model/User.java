@@ -2,6 +2,8 @@ package com.example.cinema.model;
 
 import com.google.gson.Gson;
 
+//the User class encapsulates user-related data and functionality,
+//facilitating user management within the application.
 public class User {
 
     private String email;
