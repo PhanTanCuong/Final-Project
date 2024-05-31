@@ -68,7 +68,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         getDataIntent();
     }
 
-    /Get the movie data from the Intent and call getMovieInformation
+    //Get the movie data from the Intent and call getMovieInformation
     private void getDataIntent() {
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) {
