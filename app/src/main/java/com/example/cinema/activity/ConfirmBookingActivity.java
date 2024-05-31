@@ -93,6 +93,8 @@ public class ConfirmBookingActivity extends AppCompatActivity {
 
     private List<Food> mListFoodNeedUpdate;
 
+    //Nguyen Quang Vinh
+    //Set up the user interface
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +104,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         getDataIntent();
     }
 
+    //receive data passed from Intent when activity is called
     private void getDataIntent() {
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) {
@@ -111,6 +114,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         getMovieInformation(movie.getId());
     }
 
+    //retrieve information about a movie from Firebase database
     private void getMovieInformation(long movieId) {
         MyApplication.get(this).getMovieDatabaseReference().child(String.valueOf(movieId))
                 .addValueEventListener(new ValueEventListener() {
@@ -130,6 +134,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
                 });
     }
 
+    //display information about the movie, including name, ticket price, theater list, and food list
     private void displayDataMovie() {
         if (mMovie == null) {
             return;
@@ -142,11 +147,13 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         initListFoodAndDrink();
     }
 
+    //set up event listeners for buttons and other user interactions on the UI
+
     private void initListener() {
         mActivityConfirmBookingBinding.imgBack.setOnClickListener(view -> onBackPressed());
         mActivityConfirmBookingBinding.btnConfirm.setOnClickListener(view -> onClickBookingMovie());
     }
-
+   //Displays a list of available theaters for that movie.
     private void showListRooms() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         mActivityConfirmBookingBinding.rcvRoom.setLayoutManager(gridLayoutManager);
@@ -177,6 +184,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         return mTitleRoomSelected;
     }
 
+    //Update the list of times and seats for the selected theater
     @SuppressLint("NotifyDataSetChanged")
     private void onClickSelectRoom(Room room) {
         for (int i = 0; i < mListRooms.size(); i++) {
@@ -200,6 +208,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         return roomFirebase;
     }
 
+    //Displays a list of showtimes in a specific theater.
     private void showListTimes(int roomId) {
         mActivityConfirmBookingBinding.layoutSelecteTime.setVisibility(View.VISIBLE);
         mActivityConfirmBookingBinding.layoutSelecteSeat.setVisibility(View.GONE);
@@ -224,6 +233,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         return list;
     }
 
+    //Update seat list for selected time slot
     @SuppressLint("NotifyDataSetChanged")
     private void onClickSelectTime(SlotTime time) {
         for (int i = 0; i < mListTimes.size(); i++) {
@@ -244,6 +254,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         return mTitleTimeSelected;
     }
 
+    //Displays a list of seats for a specific showtime.
     private void showListSeats(SlotTime time) {
         mActivityConfirmBookingBinding.layoutSelecteSeat.setVisibility(View.VISIBLE);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 6);
@@ -298,6 +309,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         return seatResult;
     }
 
+    //Handle event when a seat is selected.
     @SuppressLint("NotifyDataSetChanged")
     private void onClickItemSeat(SeatLocal seat) {
         if (seat.isSelected()) {
@@ -307,6 +319,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         mSeatAdapter.notifyDataSetChanged();
     }
 
+    //Initialize food and drink list
     private void initListFoodAndDrink() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mActivityConfirmBookingBinding.rcvFoodDrink.setLayoutManager(linearLayoutManager);
@@ -316,6 +329,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         getListFoodAndDrink();
     }
 
+    //Get a list of food and drinks from a Firebase database.
     public void getListFoodAndDrink() {
         MyApplication.get(this).getFoodDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
@@ -341,6 +355,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         });
     }
 
+    //Updates the quantity of the selected food in the list.
     private void selectedCountFoodAndDrink(Food food, int count) {
         if (mListFood == null || mListFood.isEmpty()) {
             return;
@@ -353,6 +368,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         }
     }
 
+    //Initialize Spinner for selecting payment method and set up adapter for it.
     private void initSpinnerCategory() {
         List<PaymentMethod> list = new ArrayList<>();
         list.add(new PaymentMethod(ConstantKey.PAYMENT_CASH, ConstantKey.PAYMENT_CASH_TITLE));
@@ -372,6 +388,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         });
     }
 
+    //Handle event when user clicks book ticket button
     private void onClickBookingMovie() {
         if (mMovie == null) {
             return;
@@ -397,6 +414,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         showDialogConfirmBooking();
     }
 
+    //Update the status of selected seats in the seat list
     private void setListSeatUpdate() {
         for (SeatLocal seatChecked : getListSeatChecked()) {
             getSeatFirebaseFromId(seatChecked.getRoomId(),
@@ -404,6 +422,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         }
     }
 
+    //Display booking confirmation dialog with details
     private void showDialogConfirmBooking() {
         mDialog = new Dialog(this);
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -471,6 +490,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         mDialog.show();
     }
 
+    //This function is called when the user confirms the booking.
     private void sendRequestOrder() {
         mMovie.setBooked(mMovie.getBooked() + Integer.parseInt(mBookingHistory.getCount()));
         MyApplication.get(ConfirmBookingActivity.this).getMovieDatabaseReference()
@@ -490,6 +510,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
                         }));
     }
 
+    //This function updates the quantity of food and beverage items in the database.
     private void updateQuantityFoodDrink() {
         if (mListFoodNeedUpdate == null || mListFoodNeedUpdate.isEmpty()) {
             return;
@@ -499,6 +520,8 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         }
     }
 
+
+    //This function updates the quantity of an item.
     private void changeQuantity(long foodId, int quantity) {
         MyApplication.get(this).getQuantityDatabaseReference(foodId)
                 .addValueEventListener(new ValueEventListener() {
@@ -517,6 +540,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
                 });
     }
 
+    //This function initiates a PayPal payment for the specified value.
     private void getPaymentPaypal(int price) {
         //Creating a paypalpayment
         PayPalPayment payment = new PayPalPayment(new BigDecimal(String.valueOf(price)),
@@ -537,6 +561,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         startActivityForResult(intent, PAYPAL_REQUEST_CODE);
     }
 
+    //This function returns a list of seats that the user has selected.
     private List<SeatLocal> getListSeatChecked() {
         List<SeatLocal> listSeatChecked = new ArrayList<>();
         if (mListSeats != null) {
@@ -549,6 +574,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         return listSeatChecked;
     }
 
+    //This function returns a list of food and drinks that the user has selected.
     private List<Food> getListFoodSelected() {
         List<Food> listFoodSelected = new ArrayList<>();
         if (mListFood != null) {
@@ -561,6 +587,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         return listFoodSelected;
     }
 
+    //This function generates a string representing the food and drink items the user has selected.
     private String getStringFoodAndDrink() {
         String result = "";
         List<Food> listFoodSelected = getListFoodSelected();
@@ -583,6 +610,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         return result;
     }
 
+    //This function returns a string representing the seats the user has selected.
     private String getStringSeatChecked() {
         String result = "";
         List<SeatLocal> listSeatChecked = getListSeatChecked();
@@ -597,6 +625,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         return result;
     }
 
+    //This function calculates the total amount to be paid.
     private int getTotalAmount() {
         if (mMovie == null) {
             return 0;
@@ -620,6 +649,7 @@ public class ConfirmBookingActivity extends AppCompatActivity {
         return priceMovie + priceFoodDrink;
     }
 
+    //This function is called when a result is returned from a child activity.
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

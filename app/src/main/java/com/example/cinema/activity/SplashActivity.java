@@ -15,6 +15,7 @@ import com.example.cinema.util.StringUtil;
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
+    //create the onCreate method, which is used to set up the interface for the application's splash screen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,7 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(this::goToNextActivity, 2000);
     }
 
+    //Check if the user is logged in.
     private void goToNextActivity() {
         if (DataStoreManager.getUser() != null && !StringUtil.isEmpty(DataStoreManager.getUser().getEmail())) {
             GlobalFunction.gotoMainActivity(this);

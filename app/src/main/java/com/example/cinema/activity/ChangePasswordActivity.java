@@ -15,6 +15,8 @@ public class ChangePasswordActivity extends BaseActivity {
 
     private ActivityChangePasswordBinding mActivityChangePasswordBinding;
 
+    //Nguyen QUang Vinh
+    //initialize onCreate method. Set up the appearance and click events for the "Back" and "Change Password" buttons.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,7 @@ public class ChangePasswordActivity extends BaseActivity {
         mActivityChangePasswordBinding.btnChangePassword.setOnClickListener(v -> onClickValidateChangePassword());
     }
 
+    //Check the conditions for changing the password
     private void onClickValidateChangePassword() {
         String strOldPassword = mActivityChangePasswordBinding.edtOldPassword.getText().toString().trim();
         String strNewPassword = mActivityChangePasswordBinding.edtNewPassword.getText().toString().trim();
@@ -46,6 +49,7 @@ public class ChangePasswordActivity extends BaseActivity {
         }
     }
 
+    //create method changePassword: Perform password change
     private void changePassword(String newPassword) {
         showProgressDialog(true);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

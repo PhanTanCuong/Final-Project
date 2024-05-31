@@ -11,6 +11,8 @@ import com.example.cinema.databinding.ActivityMainBinding;
 
 public class MainActivity extends BaseActivity {
 
+    //Nguyen QUang Vinh
+    //create the onCreate method, sets up the user interface for the main activity of the application XML file.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,7 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    //This method creates and displays a confirmation dialog when the user wants to log out
     private void showDialogLogout() {
         new MaterialDialog.Builder(this)
                 .title(getString(R.string.app_name))
@@ -75,6 +78,7 @@ public class MainActivity extends BaseActivity {
                 .show();
     }
 
+    //This method is called when the user presses the back button on the device
     @Override
     public void onBackPressed() {
         showDialogLogout();
