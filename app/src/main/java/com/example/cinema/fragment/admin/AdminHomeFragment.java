@@ -33,34 +33,35 @@ import com.wefika.flowlayout.FlowLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//Assign: Phan Tấn Cường-20110356
 public class AdminHomeFragment extends Fragment implements View.OnClickListener {
 
-    private FragmentAdminHomeBinding mFragmentAdminHomeBinding;
-    private List<Movie> mListMovies;
-    private AdminMovieAdapter mAdminMovieAdapter;
+    private FragmentAdminHomeBinding mFragmentAdminHomeBinding; // Binding object for the fragment layout
+    private List<Movie> mListMovies; // List to hold movie data
+    private AdminMovieAdapter mAdminMovieAdapter; // Adapter for the RecyclerView
 
-    private List<Category> mListCategory;
-    private Category mCategorySelected;
-
+    private List<Category> mListCategory; // List to hold category data
+    private Category mCategorySelected; // Currently selected category
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mFragmentAdminHomeBinding = FragmentAdminHomeBinding.inflate(inflater, container, false);
+        mFragmentAdminHomeBinding = FragmentAdminHomeBinding.inflate(inflater, container, false); // Inflate the fragment layout
 
-        initListener();
-        getListCategory();
-        return mFragmentAdminHomeBinding.getRoot();
+        initListener(); // Initialize listeners
+        getListCategory(); // Fetch the list of categories
+        return mFragmentAdminHomeBinding.getRoot(); // Return the root view of the fragment
     }
 
+    //Method
+    //initListener()
     private void initListener() {
-        mFragmentAdminHomeBinding.btnAddMovie.setOnClickListener(v -> onClickAddMovie());
+        mFragmentAdminHomeBinding.btnAddMovie.setOnClickListener(v -> onClickAddMovie()); // Set click listener for the add movie button
 
-        mFragmentAdminHomeBinding.imgSearch.setOnClickListener(view1 -> searchMovie());
+        mFragmentAdminHomeBinding.imgSearch.setOnClickListener(view1 -> searchMovie()); // Set click listener for the search icon
 
         mFragmentAdminHomeBinding.edtSearchName.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                searchMovie();
+                searchMovie(); // Perform search when the search action is triggered from the keyboard
                 return true;
             }
             return false;
@@ -79,7 +80,7 @@ public class AdminHomeFragment extends Fragment implements View.OnClickListener 
             public void afterTextChanged(Editable s) {
                 String strKey = s.toString().trim();
                 if (strKey.equals("") || strKey.length() == 0) {
-                    searchMovie();
+                    searchMovie(); // Perform search when the search field is cleared
                 }
             }
         });
@@ -87,25 +88,25 @@ public class AdminHomeFragment extends Fragment implements View.OnClickListener 
 
     private void getListCategory() {
         if (getActivity() == null) {
-            return;
+            return; // Return if the activity is null
         }
         MyApplication.get(getActivity()).getCategoryDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (mListCategory != null) {
-                    mListCategory.clear();
+                    mListCategory.clear(); // Clear the existing list
                 } else {
-                    mListCategory = new ArrayList<>();
+                    mListCategory = new ArrayList<>(); // Initialize the list if it's null
                 }
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Category category = dataSnapshot.getValue(Category.class);
+                    Category category = dataSnapshot.getValue(Category.class); // Get category object from the snapshot
                     if (category != null) {
-                        mListCategory.add(0, category);
+                        mListCategory.add(0, category); // Add category to the list
                     }
                 }
-                mCategorySelected = new Category(0, getString(R.string.label_all), "");
+                mCategorySelected = new Category(0, getString(R.string.label_all), ""); // Add a default "All" category
                 mListCategory.add(0, mCategorySelected);
-                initLayoutCategory("0");
+                initLayoutCategory("0"); // Initialize the category layout with the default "All" category
             }
 
             @Override
@@ -114,8 +115,9 @@ public class AdminHomeFragment extends Fragment implements View.OnClickListener 
         });
     }
 
+    //initLayoutCategory()
     private void initLayoutCategory(String tag) {
-        mFragmentAdminHomeBinding.layoutCategory.removeAllViews();
+        mFragmentAdminHomeBinding.layoutCategory.removeAllViews(); // Remove all views from the category layout
         if (mListCategory != null && !mListCategory.isEmpty()) {
             for (int i = 0; i < mListCategory.size(); i++) {
                 Category category = mListCategory.get(i);
@@ -130,29 +132,30 @@ public class AdminHomeFragment extends Fragment implements View.OnClickListener 
                 textView.setTag(String.valueOf(category.getId()));
                 textView.setText(category.getName());
                 if (tag.equals(String.valueOf(category.getId()))) {
-                    mCategorySelected = category;
+                    mCategorySelected = category; // Set the selected category
                     textView.setBackgroundResource(R.drawable.bg_white_shape_round_corner_border_red);
                     textView.setTextColor(getResources().getColor(R.color.red));
-                    searchMovie();
+                    searchMovie(); // Perform search based on the selected category
                 } else {
                     textView.setBackgroundResource(R.drawable.bg_white_shape_round_corner_border_grey);
                     textView.setTextColor(getResources().getColor(R.color.colorPrimary));
                 }
                 textView.setTextSize(((int) getResources().getDimension(R.dimen.text_size_xsmall) /
                         getResources().getDisplayMetrics().density));
-                textView.setOnClickListener(this);
-                mFragmentAdminHomeBinding.layoutCategory.addView(textView);
+                textView.setOnClickListener(this); // Set click listener for each category
+                mFragmentAdminHomeBinding.layoutCategory.addView(textView); // Add the category view to the layout
             }
         }
     }
 
+    //CRUD
     private void onClickAddMovie() {
-        GlobalFunction.startActivity(getActivity(), AddMovieActivity.class);
+        GlobalFunction.startActivity(getActivity(), AddMovieActivity.class); // Start the AddMovieActivity to add a new movie
     }
 
     private void onClickEditMovie(Movie movie) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(ConstantKey.KEY_INTENT_MOVIE_OBJECT, movie);
+        bundle.putSerializable(ConstantKey.KEY_INTENT_MOVIE_OBJECT, movie); // Pass the selected movie to the AddMovieActivity
         GlobalFunction.startActivity(getActivity(), AddMovieActivity.class, bundle);
     }
 
@@ -162,12 +165,12 @@ public class AdminHomeFragment extends Fragment implements View.OnClickListener 
                 .setMessage(getString(R.string.msg_confirm_delete))
                 .setPositiveButton(getString(R.string.action_ok), (dialogInterface, i) -> {
                     if (getActivity() == null) {
-                        return;
+                        return; // Return if the activity is null
                     }
                     MyApplication.get(getActivity()).getMovieDatabaseReference()
                             .child(String.valueOf(movie.getId())).removeValue((error, ref) ->
-                            Toast.makeText(getActivity(),
-                                    getString(R.string.msg_delete_movie_successfully), Toast.LENGTH_SHORT).show());
+                                    Toast.makeText(getActivity(),
+                                            getString(R.string.msg_delete_movie_successfully), Toast.LENGTH_SHORT).show()); // Delete the selected movie and show a confirmation message
                 })
                 .setNegativeButton(getString(R.string.action_cancel), null)
                 .show();
@@ -175,25 +178,25 @@ public class AdminHomeFragment extends Fragment implements View.OnClickListener 
 
     public void searchMovie() {
         if (getActivity() == null) {
-            return;
+            return; // Return if the activity is null
         }
-        GlobalFunction.hideSoftKeyboard(getActivity());
+        GlobalFunction.hideSoftKeyboard(getActivity()); // Hide the soft keyboard
 
         MyApplication.get(getActivity()).getMovieDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (mListMovies != null) {
-                    mListMovies.clear();
+                    mListMovies.clear(); // Clear the existing list
                 } else {
-                    mListMovies = new ArrayList<>();
+                    mListMovies = new ArrayList<>(); // Initialize the list if it's null
                 }
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Movie movie = dataSnapshot.getValue(Movie.class);
+                    Movie movie = dataSnapshot.getValue(Movie.class); // Get movie object from the snapshot
                     if (isMovieResult(movie)) {
-                        mListMovies.add(0, movie);
+                        mListMovies.add(0, movie); // Add movie to the list if it matches the search criteria
                     }
                 }
-                loadListMovie();
+                loadListMovie(); // Load the movie data into the RecyclerView
             }
 
             @Override
@@ -204,19 +207,19 @@ public class AdminHomeFragment extends Fragment implements View.OnClickListener 
 
     private void loadListMovie() {
         if (getActivity() == null) {
-            return;
+            return; // Return if the activity is null
         }
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        mFragmentAdminHomeBinding.rcvMovie.setLayoutManager(linearLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()); // Create a linear layout manager
+        mFragmentAdminHomeBinding.rcvMovie.setLayoutManager(linearLayoutManager); // Set the layout manager for the RecyclerView
         mAdminMovieAdapter = new AdminMovieAdapter(getActivity(), mListMovies, new AdminMovieAdapter.IManagerMovieListener() {
             @Override
             public void editMovie(Movie movie) {
-                onClickEditMovie(movie);
+                onClickEditMovie(movie);// Set the edit movie action
             }
 
             @Override
             public void deleteMovie(Movie movie) {
-                deleteMovieItem(movie);
+                deleteMovieItem(movie);// Set the delete movie action
             }
 
             @Override
@@ -227,38 +230,38 @@ public class AdminHomeFragment extends Fragment implements View.OnClickListener 
         mFragmentAdminHomeBinding.rcvMovie.setAdapter(mAdminMovieAdapter);
     }
 
+    //isMovieResult()
     private boolean isMovieResult(Movie movie) {
         if (movie == null) {
-            return false;
+            return false; // Return false if the movie object is null
         }
-        String key = mFragmentAdminHomeBinding.edtSearchName.getText().toString().trim();
+        String key = mFragmentAdminHomeBinding.edtSearchName.getText().toString().trim(); // Get the search keyword
         long categoryId = 0;
         if (mCategorySelected != null) {
-            categoryId = mCategorySelected.getId();
+            categoryId = mCategorySelected.getId(); // Get the selected category ID
         }
         if (StringUtil.isEmpty(key)) {
             if (categoryId == 0) {
-                return true;
-            } else return movie.getCategoryId() == categoryId;
+                return true; // Return true if no keyword and no specific category are selected
+            } else return movie.getCategoryId() == categoryId; // Return true if the movie matches the selected category
         } else {
             boolean isMatch = GlobalFunction.getTextSearch(movie.getName()).toLowerCase().trim()
                     .contains(GlobalFunction.getTextSearch(key).toLowerCase().trim());
             if (categoryId == 0) {
-                return isMatch;
-            } else return isMatch && movie.getCategoryId() == categoryId;
+                return isMatch; // Return true if the movie matches the keyword
+            } else return isMatch && movie.getCategoryId() == categoryId; // Return true if the movie matches both the keyword and the selected category
         }
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         if (mAdminMovieAdapter != null) {
-            mAdminMovieAdapter.release();
+            mAdminMovieAdapter.release(); // Release resources held by the adapter
         }
     }
 
     @Override
     public void onClick(View v) {
-        initLayoutCategory(v.getTag().toString());
+        initLayoutCategory(v.getTag().toString()); // Release resources held by the adapter
     }
 }

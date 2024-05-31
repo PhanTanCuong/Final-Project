@@ -10,7 +10,7 @@ import com.example.cinema.fragment.admin.AdminCategoryFragment;
 import com.example.cinema.fragment.admin.AdminFoodFragment;
 import com.example.cinema.fragment.admin.AdminHomeFragment;
 import com.example.cinema.fragment.admin.AdminManageFragment;
-
+//Assign: Phan Tấn Cường-20110356
 public class AdminViewPagerAdapter extends FragmentStateAdapter {
 
     //Constructor

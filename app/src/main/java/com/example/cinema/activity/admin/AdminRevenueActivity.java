@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//Assign: Phan Tấn Cường-20110356
 public class AdminRevenueActivity extends AppCompatActivity {
 
     // Declare a variable

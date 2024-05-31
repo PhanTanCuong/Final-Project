@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//Assign: Phan Tấn Cường-20110356
 public class AddMovieActivity extends BaseActivity {
 
     //Declare vars

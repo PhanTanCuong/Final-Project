@@ -14,7 +14,7 @@ import com.example.cinema.R;
 import com.example.cinema.model.Category;
 
 import java.util.List;
-
+//Assign: Phan Tấn Cường-20110356
 public class AdminSelectCategoryAdapter extends ArrayAdapter<Category> {
 
     // Context of the adapter

@@ -17,7 +17,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import org.greenrobot.eventbus.EventBus;
-
+//Assign: Phan Tấn Cường-20110356
 @SuppressLint("NonConstantResourceId")  //Suppresses lint warnings related to non-constant resource IDs.
 public class AdminMainActivity extends BaseActivity {
 
