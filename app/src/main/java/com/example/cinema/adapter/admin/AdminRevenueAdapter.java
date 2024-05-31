@@ -11,7 +11,7 @@ import com.example.cinema.databinding.ItemRevenueBinding;
 import com.example.cinema.model.Revenue;
 
 import java.util.List;
-
+//Assign: Phan Tấn Cường-20110356
 public class AdminRevenueAdapter extends RecyclerView.Adapter<AdminRevenueAdapter.AdminRevenueViewHolder> {
 
     // List to hold revenue items

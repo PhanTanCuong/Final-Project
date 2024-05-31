@@ -11,7 +11,7 @@ import com.example.cinema.model.Category;
 import com.example.cinema.util.GlideUtils;
 
 import java.util.List;
-
+//Assign: Phan Tấn Cường-20110356
 public class AdminCategoryAdapter extends RecyclerView.Adapter<AdminCategoryAdapter.CategoryViewHolder> {
 
     private final List<Category> mListCategory; // List to hold categories

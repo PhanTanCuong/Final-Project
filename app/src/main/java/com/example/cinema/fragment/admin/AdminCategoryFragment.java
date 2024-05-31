@@ -30,30 +30,32 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//Assign: Phan Tấn Cường-20110356
 public class AdminCategoryFragment extends Fragment {
 
-    private FragmentAdminCategoryBinding mFragmentAdminCategoryBinding;
-    private List<Category> mListCategory;
+    private FragmentAdminCategoryBinding mFragmentAdminCategoryBinding; // Binding object for the fragment layout
+    private List<Category> mListCategory; // List to hold category data
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mFragmentAdminCategoryBinding = FragmentAdminCategoryBinding.inflate(inflater, container, false);
+        mFragmentAdminCategoryBinding = FragmentAdminCategoryBinding.inflate(inflater, container, false); // Inflate the fragment layout
 
-        initListener();
-        getListCategory("");
-        return mFragmentAdminCategoryBinding.getRoot();
+        initListener(); // Initialize listeners
+        getListCategory(""); // Fetch the list of categories with an empty keyword
+        return mFragmentAdminCategoryBinding.getRoot(); // Return the root view of the fragment
     }
+    //Methods
+    //initListener() Method
 
     private void initListener() {
-        mFragmentAdminCategoryBinding.btnAddCategory.setOnClickListener(v -> onClickAddCategory());
+        mFragmentAdminCategoryBinding.btnAddCategory.setOnClickListener(v -> onClickAddCategory()); // Set click listener for the add category button
 
-        mFragmentAdminCategoryBinding.imgSearch.setOnClickListener(view1 -> searchCategory());
+        mFragmentAdminCategoryBinding.imgSearch.setOnClickListener(view1 -> searchCategory()); // Set click listener for the search icon
 
         mFragmentAdminCategoryBinding.edtSearchName.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                searchCategory();
+                searchCategory(); // Perform search when the search action is triggered from the keyboard
                 return true;
             }
             return false;
@@ -72,26 +74,30 @@ public class AdminCategoryFragment extends Fragment {
             public void afterTextChanged(Editable s) {
                 String strKey = s.toString().trim();
                 if (strKey.equals("") || strKey.length() == 0) {
-                    getListCategory("");
+                    getListCategory(""); // Fetch the list without any keyword filtering if input is empty
                 }
             }
         });
     }
 
+    //searchCategory() Method
     private void searchCategory() {
-        String strKey = mFragmentAdminCategoryBinding.edtSearchName.getText().toString().trim();
-        getListCategory(strKey);
-        GlobalFunction.hideSoftKeyboard(getActivity());
+        String strKey = mFragmentAdminCategoryBinding.edtSearchName.getText().toString().trim(); // Get the keyword from the input field
+        getListCategory(strKey); // Fetch the list based on the keyword
+        GlobalFunction.hideSoftKeyboard(getActivity()); // Hide the soft keyboard
     }
 
+    //CRUD
+    //onClickAddCategory() method
     private void onClickAddCategory() {
-        GlobalFunction.startActivity(getActivity(), AddCategoryActivity.class);
+        GlobalFunction.startActivity(getActivity(), AddCategoryActivity.class); // Start the AddCategoryActivity to add a new category
     }
 
+    //onClickEditCategory() Method
     private void onClickEditCategory(Category category) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(ConstantKey.KEY_INTENT_CATEGORY_OBJECT, category);
-        GlobalFunction.startActivity(getActivity(), AddCategoryActivity.class, bundle);
+        GlobalFunction.startActivity(getActivity(), AddCategoryActivity.class, bundle);// Pass the selected category to the AddCategoryActivity
     }
 
     private void deleteCategoryItem(Category category) {
@@ -100,16 +106,17 @@ public class AdminCategoryFragment extends Fragment {
                 .setMessage(getString(R.string.msg_confirm_delete))
                 .setPositiveButton(getString(R.string.action_ok), (dialogInterface, i) -> {
                     if (getActivity() == null) {
-                        return;
+                        return; // Return if the activity is null
                     }
                     MyApplication.get(getActivity()).getCategoryDatabaseReference()
                             .child(String.valueOf(category.getId())).removeValue((error, ref) ->
-                            Toast.makeText(getActivity(),
-                                    getString(R.string.msg_delete_category_successfully), Toast.LENGTH_SHORT).show());
+                                    Toast.makeText(getActivity(),
+                                            getString(R.string.msg_delete_category_successfully), Toast.LENGTH_SHORT).show()); // Delete the selected category and show a confirmation message
                 })
                 .setNegativeButton(getString(R.string.action_cancel), null)
                 .show();
     }
+    //getListCategory()
 
     public void getListCategory(String key) {
         if (getActivity() == null) {
@@ -119,51 +126,51 @@ public class AdminCategoryFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (mListCategory != null) {
-                    mListCategory.clear();
+                    mListCategory.clear(); // Clear the existing list
                 } else {
-                    mListCategory = new ArrayList<>();
+                    mListCategory = new ArrayList<>(); // Initialize the list if it's null
                 }
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Category category = dataSnapshot.getValue(Category.class);
+                    Category category = dataSnapshot.getValue(Category.class); // Get category object from the snapshot
                     if (category != null) {
                         if (StringUtil.isEmpty(key)) {
-                            mListCategory.add(0, category);
+                            mListCategory.add(0, category); // Add category to the list if no keyword is specified
                         } else {
                             if (GlobalFunction.getTextSearch(category.getName()).toLowerCase().trim()
                                     .contains(GlobalFunction.getTextSearch(key).toLowerCase().trim())) {
-                                mListCategory.add(0, category);
+                                mListCategory.add(0, category); // Add category to the list if it matches the keyword
                             }
                         }
                     }
                 }
-                loadListData();
+                loadListData(); // Load the category data into the RecyclerView
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {// Handle error
             }
         });
     }
 
     private void loadListData() {
         if (getActivity() == null) {
-            return;
+            return; // Return if the activity is null
         }
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        mFragmentAdminCategoryBinding.rcvCategory.setLayoutManager(linearLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity()); // Create a linear layout manager
+        mFragmentAdminCategoryBinding.rcvCategory.setLayoutManager(linearLayoutManager); // Set the layout manager for the RecyclerView;
 
         AdminCategoryAdapter adminCategoryAdapter = new AdminCategoryAdapter(mListCategory,
                 new AdminCategoryAdapter.IManagerCategoryListener() {
                     @Override
                     public void editCategory(Category category) {
-                        onClickEditCategory(category);
+                        onClickEditCategory(category); // Set the edit category action
                     }
 
                     @Override
                     public void deleteCategory(Category category) {
-                        deleteCategoryItem(category);
+                        deleteCategoryItem(category);// Set the delete category action
                     }
                 });
-        mFragmentAdminCategoryBinding.rcvCategory.setAdapter(adminCategoryAdapter);
+        mFragmentAdminCategoryBinding.rcvCategory.setAdapter(adminCategoryAdapter); // Set the adapter for the RecyclerView
     }
 }

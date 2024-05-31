@@ -11,7 +11,7 @@ import com.example.cinema.databinding.ItemFoodBinding;
 import com.example.cinema.model.Food;
 
 import java.util.List;
-
+//Assign: Phan Tấn Cường-20110356
 public class AdminFoodAdapter extends RecyclerView.Adapter<AdminFoodAdapter.FoodViewHolder> {
 
     // List to hold the food items

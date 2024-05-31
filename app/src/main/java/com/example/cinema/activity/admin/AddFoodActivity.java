@@ -15,6 +15,7 @@ import com.example.cinema.util.StringUtil;
 import java.util.HashMap;
 import java.util.Map;
 
+//Assign: Phan Tấn Cường-20110356
 public class AddFoodActivity extends BaseActivity {
 
     // Declare a variable

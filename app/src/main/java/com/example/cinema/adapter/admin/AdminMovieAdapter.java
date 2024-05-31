@@ -13,7 +13,7 @@ import com.example.cinema.model.Movie;
 import com.example.cinema.util.GlideUtils;
 
 import java.util.List;
-
+//Assign: Phan Tấn Cường-20110356
 public class AdminMovieAdapter extends RecyclerView.Adapter<AdminMovieAdapter.MovieViewHolder> {
 
 
