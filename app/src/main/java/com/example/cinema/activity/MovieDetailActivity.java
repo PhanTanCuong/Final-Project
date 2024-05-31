@@ -57,6 +57,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private ExtractorMediaSource mMediaSource;
     private SimpleExoPlayer mPlayer;
 
+    //Nguyen Quang Vinh
+    //Initialization method. Set up interface and get data from Intent.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +68,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         getDataIntent();
     }
 
+    /Get the movie data from the Intent and call getMovieInformation
     private void getDataIntent() {
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) {
@@ -75,6 +78,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         getMovieInformation(movie.getId());
     }
 
+    //Get movie information from Firebase Realtime Database and display movie data.
     private void getMovieInformation(long movieId) {
         MyApplication.get(this).getMovieDatabaseReference().child(String.valueOf(movieId))
                 .addValueEventListener(new ValueEventListener() {
@@ -93,6 +97,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
     }
 
+    //Display movie data on the interface
     private void displayDataMovie() {
         if (mMovie == null) {
             return;
@@ -111,6 +116,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
     }
 
+    //Set up click events for views such as the "Back", "Watch Trailer", "Play Movie", and "Booking" buttons.
     private void initListener() {
         mActivityMovieDetailBinding.imgBack.setOnClickListener(view -> onBackPressed());
         mActivityMovieDetailBinding.btnWatchTrailer.setOnClickListener(view -> scrollToLayoutTrailer());
@@ -118,6 +124,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         mActivityMovieDetailBinding.btnBooking.setOnClickListener(view -> onClickGoToConfirmBooking());
     }
 
+    //Go to the booking confirmation page if the movie release date is still valid
     private void onClickGoToConfirmBooking() {
         if (mMovie == null) {
             return;
@@ -131,6 +138,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         GlobalFunction.startActivity(this, ConfirmBookingActivity.class, bundle);
     }
 
+    //Scroll to the movie trailer and start playing the video
     private void scrollToLayoutTrailer() {
         long dulation = 500;
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
@@ -143,6 +151,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         }, dulation);
     }
 
+    //Initialize ExoPlayer and configure necessary components such as
     private void initExoPlayer() {
         PlayerView mExoPlayerView = mActivityMovieDetailBinding.exoplayer;
 
@@ -221,6 +230,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         mExoPlayerView.hideController();
     }
 
+    //Start playing the video when the play button is pressed
     private void startVideo() {
         mActivityMovieDetailBinding.imgPlayMovie.setVisibility(View.GONE);
         if (mPlayer != null) {

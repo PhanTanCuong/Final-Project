@@ -10,6 +10,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgotPasswordActivity extends BaseActivity {
 
+    //Nguyen Quang Vinh
+    //create ForgotPasswordActivity method
+    //Use View Binding to access views in the layout.
     private ActivityForgotPasswordBinding mActivityForgotPasswordBinding;
 
     @Override
@@ -22,6 +25,7 @@ public class ForgotPasswordActivity extends BaseActivity {
         mActivityForgotPasswordBinding.btnResetPassword.setOnClickListener(v -> onClickValidateResetPassword());
     }
 
+    //create onClick Validate Reset Password method: Check the conditions to reset the password
     private void onClickValidateResetPassword() {
         String strEmail = mActivityForgotPasswordBinding.edtEmail.getText().toString().trim();
         if (StringUtil.isEmpty(strEmail)) {
@@ -33,6 +37,7 @@ public class ForgotPasswordActivity extends BaseActivity {
         }
     }
 
+    //Use FirebaseAuth to send a password reset email
     private void resetPassword(String email) {
         showProgressDialog(true);
         FirebaseAuth auth = FirebaseAuth.getInstance();

@@ -18,6 +18,9 @@ public class SignUpActivity extends BaseActivity {
 
     private ActivitySignUpBinding mActivitySignUpBinding;
 
+    //Nguyen Quang Vinh
+    //Initialize SignUpActivity
+    //Set up some listeners for actions like clicking the back button,switch to the login screen, and press the register button
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,7 @@ public class SignUpActivity extends BaseActivity {
         mActivitySignUpBinding.btnSignUp.setOnClickListener(v -> onClickValidateSignUp());
     }
 
+    //Check user input fields such as email and password.
     private void onClickValidateSignUp() {
         String strEmail = mActivitySignUpBinding.edtEmail.getText().toString().trim();
         String strPassword = mActivitySignUpBinding.edtPassword.getText().toString().trim();
@@ -58,6 +62,9 @@ public class SignUpActivity extends BaseActivity {
         }
     }
 
+    //Perform new user registration using Firebase Authentication
+    // If registration is successful, save user information to DataStoreManager and go to the main screen (MainActivity), ending the current activity
+    // If unsuccessful, display an error message
     private void signUpUser(String email, String password) {
         showProgressDialog(true);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();

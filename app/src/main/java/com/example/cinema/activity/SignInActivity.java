@@ -18,6 +18,9 @@ public class SignInActivity extends BaseActivity {
 
     private ActivitySignInBinding mActivitySignInBinding;
 
+    //Nguyen QUang Vinh
+    //This is the initialization method for SignInActivity.
+    // It sets up the layout using ActivitySignInBinding and sets up listeners for buttons and text views
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,7 @@ public class SignInActivity extends BaseActivity {
         GlobalFunction.startActivity(this, ForgotPasswordActivity.class);
     }
 
+    //Check input fields from the user
     private void onClickValidateSignIn() {
         String strEmail = mActivitySignInBinding.edtEmail.getText().toString().trim();
         String strPassword = mActivitySignInBinding.edtPassword.getText().toString().trim();
@@ -64,6 +68,8 @@ public class SignInActivity extends BaseActivity {
         }
     }
 
+    //Perform login using Firebase Authentication
+    //If successful login, save user information to DataStoreManager and go to the main screen (MainActivity).
     private void signInUser(String email, String password) {
         showProgressDialog(true);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();

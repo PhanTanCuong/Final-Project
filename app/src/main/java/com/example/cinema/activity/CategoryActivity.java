@@ -20,6 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+//Nguyen Quang Vinh
+//create CategoryActivity class that extends from AppCompatActivity
 public class CategoryActivity extends AppCompatActivity {
 
     private ActivityCategoryBinding mActivityCategoryBinding;
@@ -37,6 +39,9 @@ public class CategoryActivity extends AppCompatActivity {
         getListMovies();
     }
 
+
+    //Nguyen QUang Vinh
+    //This method receives category data from the intent and updates the title (tvTitle) with the category name.
     private void getDataIntent() {
         Bundle bundleReceived = getIntent().getExtras();
         if (bundleReceived != null) {
@@ -45,10 +50,13 @@ public class CategoryActivity extends AppCompatActivity {
         }
     }
 
+
+    //This method sets up the listener for the back button (imgBack)
     private void initListener() {
         mActivityCategoryBinding.imgBack.setOnClickListener(v -> onBackPressed());
     }
 
+    //This method gets a list of movies from Firebase Database. When data changes, the movie list will be updated
     private void getListMovies() {
         MyApplication.get(this).getMovieDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
@@ -71,7 +79,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
-
+    //Navigate to the movie details page when the user selects a movie from the list.
     private void displayListMovies() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         mActivityCategoryBinding.rcvData.setLayoutManager(gridLayoutManager);

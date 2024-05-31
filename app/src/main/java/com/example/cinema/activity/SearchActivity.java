@@ -34,6 +34,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private Category mCategorySelected;
     private List<Movie> mListMovies;
 
+    //Nguyen Quang Vinh
+    //Set up the interface, initialize listeners and get a list of movie genres
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         getListCategory();
     }
 
+    //Set up click and input events for views such as the "Back", "Delete" and "Search" buttons.
     private void initListener() {
         mActivitySearchBinding.imageBack.setOnClickListener(v -> {
             GlobalFunction.hideSoftKeyboard(SearchActivity.this);
@@ -78,6 +81,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
+    //Get the list of movie genres from Firebase Realtime Database and display it on the interface
     private void getListCategory() {
         MyApplication.get(this).getCategoryDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
@@ -109,6 +113,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
+    //Display the category list on the interface by adding TextViews to the FlowLayout.
     private void initLayoutCategory(String tag) {
         mActivitySearchBinding.layoutCategory.removeAllViews();
         if (mListCategory != null && !mListCategory.isEmpty()) {
@@ -141,6 +146,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    //create method searchMovie
     private void searchMovie() {
         MyApplication.get(this).getMovieDatabaseReference().addValueEventListener(new ValueEventListener() {
             @Override
@@ -165,6 +171,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
+    //Display movie list to RecyclerView using GridLayoutManager and MovieAdapter
     private void displayListMoviesResult() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         mActivitySearchBinding.rcvData.setLayoutManager(gridLayoutManager);
@@ -173,6 +180,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         mActivitySearchBinding.rcvData.setAdapter(movieAdapter);
     }
 
+    //Check if the movie matches the selected keyword and genre
     private boolean isMovieResult(Movie movie) {
         if (movie == null) {
             return false;
