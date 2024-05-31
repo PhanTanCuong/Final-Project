@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--  Layout for a seat item  -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_item"
     android:layout_width="@dimen/define_dimen_50"
@@ -9,6 +10,8 @@
     android:paddingTop="@dimen/define_dimen_10"
     android:paddingBottom="@dimen/define_dimen_10">
 
+    <!-- Tran Anh Tai -->
+    <!--  TextView for seat number  -->
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"

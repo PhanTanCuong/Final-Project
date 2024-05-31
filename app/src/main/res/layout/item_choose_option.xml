@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,6 +7,8 @@
     android:background="@drawable/bg_white_corner_6_border_gray"
     android:gravity="center_vertical"
     android:orientation="horizontal">
+    <!-- Tran Anh Tai -->
+    <!--  TextView for displaying selected item  -->
 
     <TextView
         android:id="@+id/tv_selected"
@@ -16,6 +19,7 @@
         android:padding="@dimen/define_dimen_12"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/text_size_small" />
+    <!--  ImageView for dropdown icon  -->
 
     <ImageView
         android:id="@+id/img_drop"

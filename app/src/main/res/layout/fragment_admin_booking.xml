@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
+    <!-- Tran Anh Tai -->
+    <!--  Search Layout  -->
 
     <RelativeLayout
         android:id="@+id/layout_search"
@@ -38,6 +40,7 @@
             android:padding="@dimen/define_dimen_6"
             android:src="@drawable/ic_search"
             tools:ignore="ContentDescription" />
+        <!--  Filter Layout  -->
     </RelativeLayout>
 
     <LinearLayout
@@ -59,6 +62,7 @@
             android:layout_height="1dp"
             android:background="@color/black_overlay"/>
     </LinearLayout>
+    <!--  RecyclerView for Booking History  -->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_booking_history"
@@ -67,6 +71,7 @@
         android:layout_below="@+id/layout_filter"
         android:layout_marginStart="@dimen/define_dimen_10"
         android:layout_marginTop="@dimen/define_dimen_10" />
+    <!--  Scan QR Code ImageView  -->
 
     <ImageView
         android:id="@+id/img_scan_qr"

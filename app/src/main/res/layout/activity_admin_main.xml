@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <!-- Tran Anh Tai -->
+    <!--  Title bar at the top  -->
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
@@ -15,6 +17,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_normal" />
 
+    <!--  ViewPager2 for swiping between different fragments  -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager_2"
         android:layout_width="match_parent"
@@ -22,6 +25,7 @@
         android:layout_above="@+id/bottom_navigation"
         android:layout_below="@+id/tv_title" />
 
+    <!--  Bottom navigation bar for different sections of the app  -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"

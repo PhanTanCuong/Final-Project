@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--  Layout for displaying a movie item within a CardView  -->
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,16 +8,20 @@
     android:layout_marginEnd="@dimen/define_dimen_10"
     android:layout_marginBottom="@dimen/define_dimen_10"
     app:cardCornerRadius="@dimen/define_dimen_6">
+    <!-- Tran Anh Tai -->
+    <!--  Outer LinearLayout containing all the views  -->
 
     <LinearLayout
         android:id="@+id/layout_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <!--  RelativeLayout for the image and view count  -->
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/define_dimen_130">
+            <!--  ImageView for displaying the movie image  -->
 
             <ImageView
                 android:id="@+id/img_movie"
@@ -24,6 +29,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 tools:ignore="ContentDescription" />
+            <!--  LinearLayout for displaying view count  -->
 
             <LinearLayout
                 android:id="@+id/layout_view"
@@ -37,6 +43,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerVertical="true"
                 tools:ignore="RelativeOverlap,UseCompoundDrawables">
+                <!--  TextView for displaying the view count  -->
 
                 <TextView
                     android:id="@+id/tv_booked"
@@ -46,6 +53,7 @@
                     android:textColor="@color/white"
                     android:layout_marginEnd="@dimen/define_dimen_5"
                     android:textSize="@dimen/text_size_xsmall" />
+                <!--  ImageView for displaying a view icon  -->
 
                 <ImageView
                     android:layout_width="@dimen/define_dimen_20"
@@ -54,6 +62,7 @@
                     tools:ignore="ContentDescription" />
             </LinearLayout>
         </RelativeLayout>
+        <!--  TextView for displaying the movie name  -->
 
         <TextView
             android:id="@+id/tv_name"

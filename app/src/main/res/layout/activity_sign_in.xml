@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Tran Anh Tai -->
+<!--  Centered container for the logo, sign-in text, input fields, radio buttons, sign-in button, and forgot password text  -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

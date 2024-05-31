@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--  Layout for a row item with a CheckBox and a TextView  -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/define_dimen_12">
-
+    <!-- Tran Anh Tai -->
+    <!--  CheckBox for selection  -->
     <CheckBox
         android:id="@+id/chb_selected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"/>
-
+    <!--  TextView for displaying title  -->
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"

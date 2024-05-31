@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <!-- Tran Anh Tai -->
+    <!--  Back button image  -->
     <ImageView
         android:id="@+id/img_back"
         android:layout_width="wrap_content"
@@ -13,6 +15,7 @@
         android:src="@drawable/ic_back"
         tools:ignore="ContentDescription" />
 
+    <!--  Centered container for the title, input fields, and button  -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,6 +24,7 @@
         android:orientation="vertical"
         android:padding="@dimen/define_dimen_18">
 
+        <!--  Title text for adding category  -->
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
@@ -30,6 +34,7 @@
             android:textSize="@dimen/text_size_xnormal"
             android:textStyle="bold" />
 
+        <!--  Name input field for the category  -->
         <EditText
             android:id="@+id/edt_name"
             android:layout_width="match_parent"
@@ -44,6 +49,7 @@
             android:textSize="@dimen/text_size_small"
             tools:ignore="Autofill" />
 
+        <!--  Image URL input field for the category  -->
         <EditText
             android:id="@+id/edt_image"
             android:layout_width="match_parent"
@@ -58,6 +64,7 @@
             android:textSize="@dimen/text_size_small"
             tools:ignore="Autofill" />
 
+        <!--  Button to add or edit the category  -->
         <Button
             android:id="@+id/btn_add_or_edit"
             android:layout_width="match_parent"

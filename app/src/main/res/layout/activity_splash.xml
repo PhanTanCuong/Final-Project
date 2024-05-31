@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Tran Anh Tai -->
+<!--  LinearLayout for Centering Content  -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
+    <!--  ImageView for Logo  -->
 
     <TextView
         android:layout_width="wrap_content"
@@ -12,5 +15,6 @@
         android:textStyle="bold"
         android:textSize="@dimen/text_size_xlarge"
         android:text="@string/app_name"/>
+    <!--  TextView for App Name  -->
 
 </RelativeLayout>

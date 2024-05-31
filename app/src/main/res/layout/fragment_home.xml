@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
+    <!-- Tran Anh Tai -->
+    <!--  Search Bar  -->
 
     <RelativeLayout
         android:id="@+id/layout_search"
@@ -36,6 +38,7 @@
             android:src="@drawable/ic_search"
             tools:ignore="ContentDescription" />
     </RelativeLayout>
+    <!--  NestedScrollView  -->
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -45,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <!--  Popular Movies  -->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,6 +73,7 @@
                 android:layout_gravity="center"
                 app:ci_drawable="@drawable/bg_indicatior_selected"
                 app:ci_drawable_unselected="@drawable/bg_indicatior_unselected" />
+            <!--  Movie Categories  -->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -87,6 +92,7 @@
                 android:layout_marginBottom="@dimen/define_dimen_10"
                 android:focusable="false"
                 android:nestedScrollingEnabled="false" />
+            <!--  All Movies  -->
 
             <TextView
                 android:layout_width="wrap_content"

@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <!-- Tran Anh Tai -->
+    <!--  Back button image  -->
     <ImageView
         android:id="@+id/img_back"
         android:layout_width="wrap_content"
@@ -11,6 +13,7 @@
         android:padding="@dimen/define_dimen_12"
         android:src="@drawable/ic_back"/>
 
+    <!--  Centered container for the title, input fields, and button  -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +22,7 @@
         android:orientation="vertical"
         android:padding="@dimen/define_dimen_18">
 
+        <!--  Title text for adding food item  -->
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
@@ -28,6 +32,7 @@
             android:textSize="@dimen/text_size_xnormal"
             android:textStyle="bold" />
 
+        <!--  Name input field for the food item  -->
         <EditText
             android:id="@+id/edt_name"
             android:layout_width="match_parent"
@@ -41,6 +46,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/text_size_small" />
 
+        <!--  RelativeLayout for the price input field with currency label  -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,6 +54,7 @@
             android:background="@drawable/bg_white_corner_6_border_gray"
             android:padding="@dimen/define_dimen_12">
 
+            <!--  Price input field for the food item  -->
             <EditText
                 android:id="@+id/edt_price"
                 android:layout_width="match_parent"
@@ -62,6 +69,7 @@
                 android:textColor="@color/red"
                 android:textSize="@dimen/text_size_small" />
 
+            <!--  Currency label text  -->
             <TextView
                 android:id="@+id/tv_currency"
                 android:layout_width="wrap_content"
@@ -73,6 +81,7 @@
                 android:textSize="@dimen/text_size_small" />
         </RelativeLayout>
 
+        <!--  Quantity input field for the food item  -->
         <EditText
             android:id="@+id/edt_quantity"
             android:layout_width="match_parent"
@@ -86,6 +95,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/text_size_small" />
 
+        <!--  Button to add or edit the food item  -->
         <Button
             android:id="@+id/btn_add_or_edit"
             android:layout_width="match_parent"

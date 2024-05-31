@@ -5,11 +5,14 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
+    <!-- Tran Anh Tai -->
+    <!--  Toolbar at the top with a back button and title  -->
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/define_dimen_50"
         android:background="@color/colorPrimaryDark">
+        <!--  Back button image  -->
 
         <ImageView
             android:id="@+id/img_back"
@@ -20,6 +23,7 @@
             android:padding="@dimen/define_dimen_5"
             android:src="@drawable/ic_back_white"
             tools:ignore="ContentDescription" />
+        <!--  Title text in the center  -->
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,29 +33,34 @@
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_normal" />
     </RelativeLayout>
+    <!--  Scrollable content area  -->
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <!--  Main content container  -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="@dimen/define_dimen_10">
+            <!--  Movie name section  -->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/define_dimen_5"
                 android:orientation="horizontal">
+                <!--  Label for movie name  -->
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/name_movie"
                     android:textSize="@dimen/text_size_small" />
+                <!--  Movie name value  -->
 
                 <TextView
                     android:id="@+id/tv_movie_name"
@@ -62,18 +71,21 @@
                     android:textSize="@dimen/text_size_small"
                     android:textStyle="bold" />
             </LinearLayout>
+            <!--  Movie price section  -->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/define_dimen_5"
                 android:orientation="horizontal">
+                <!--  Label for movie price  -->
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/price_movie"
                     android:textSize="@dimen/text_size_small" />
+                <!--  Movie price value  -->
 
                 <TextView
                     android:id="@+id/tv_movie_price"
@@ -84,12 +96,14 @@
                     android:textSize="@dimen/text_size_small"
                     android:textStyle="bold" />
             </LinearLayout>
+            <!--  Separator line  -->
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/define_dimen_20"
                 android:background="@color/black_overlay" />
+            <!--  Room selection label  -->
 
             <TextView
                 android:layout_width="match_parent"
@@ -99,6 +113,7 @@
                 android:textColor="@color/teal_700"
                 android:textSize="@dimen/text_size_small"
                 android:textStyle="bold" />
+            <!--  RecyclerView for room selection  -->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_room"
@@ -106,6 +121,7 @@
                 android:layout_height="wrap_content"
                 android:focusable="false"
                 android:nestedScrollingEnabled="false" />
+            <!--  Time selection section, initially hidden  -->
 
             <LinearLayout
                 android:id="@+id/layout_selecte_time"
@@ -114,6 +130,7 @@
                 android:layout_marginTop="@dimen/define_dimen_20"
                 android:orientation="vertical"
                 android:visibility="gone">
+                <!--  Time selection label  -->
 
                 <TextView
                     android:layout_width="match_parent"
@@ -122,6 +139,7 @@
                     android:textColor="@color/teal_700"
                     android:textSize="@dimen/text_size_small"
                     android:textStyle="bold" />
+                <!--  RecyclerView for time selection  -->
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcv_time"
@@ -130,6 +148,7 @@
                     android:focusable="false"
                     android:nestedScrollingEnabled="false" />
             </LinearLayout>
+            <!--  Seat selection section, initially hidden  -->
 
             <LinearLayout
                 android:id="@+id/layout_selecte_seat"
@@ -138,6 +157,7 @@
                 android:layout_marginTop="@dimen/define_dimen_20"
                 android:orientation="vertical"
                 android:visibility="gone">
+                <!--  Seat selection label  -->
 
                 <TextView
                     android:layout_width="match_parent"
@@ -146,6 +166,7 @@
                     android:textColor="@color/teal_700"
                     android:textSize="@dimen/text_size_small"
                     android:textStyle="bold" />
+                <!--  Seat selection container with a border  -->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -153,6 +174,7 @@
                     android:layout_marginTop="@dimen/define_dimen_10"
                     android:background="@drawable/bg_white_corner_6_border_gray"
                     android:orientation="vertical">
+                    <!--  Screen label in seat selection  -->
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -160,6 +182,7 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
                         android:orientation="vertical">
+                        <!--  Screen text  -->
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -167,6 +190,7 @@
                             android:text="@string/main_screen"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="@dimen/text_size_small" />
+                        <!--  Screen visual indicator  -->
 
                         <View
                             android:layout_width="@dimen/define_dimen_150"
@@ -174,6 +198,7 @@
                             android:layout_marginTop="@dimen/define_dimen_2"
                             android:background="@color/black" />
                     </LinearLayout>
+                    <!--  RecyclerView for seat selection  -->
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rcv_seat"
@@ -202,6 +227,7 @@
                 android:layout_height="wrap_content"
                 android:focusable="false"
                 android:nestedScrollingEnabled="false" />
+            <!--  Payment method selection label  -->
 
             <TextView
                 android:layout_width="match_parent"
@@ -211,6 +237,7 @@
                 android:textColor="@color/teal_700"
                 android:textSize="@dimen/text_size_small"
                 android:textStyle="bold" />
+            <!--  Spinner for payment method options  -->
 
             <Spinner
                 android:id="@+id/spn_payment"
@@ -219,6 +246,7 @@
                 android:layout_marginTop="@dimen/define_dimen_5"
                 android:background="@color/transparent"
                 android:scrollbars="none" />
+            <!--  Confirm button  -->
 
             <Button
                 android:id="@+id/btn_confirm"
