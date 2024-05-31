@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.cinema.R;
 
+//Test comment
 public abstract class BaseActivity extends AppCompatActivity {
     protected MaterialDialog progressDialog, alertDialog;
 
