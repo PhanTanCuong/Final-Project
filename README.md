@@ -1,1 +1,7 @@
-# Final Project
+# Final Project- MOBILE PROGRAMMING
+Topic:BUILDING ANDROID APPLICATION BOOKING CINEMA TICKET
+Phan Tấn Cường	20110356
+Trần Anh Tài	20110397
+Nguyễn Quang Vinh	20110413
+
+
